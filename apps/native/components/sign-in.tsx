@@ -8,7 +8,7 @@ import {
 	View,
 } from "react-native";
 
-export function SignIn() {
+export function SignIn({ onSuccess }: { onSuccess?: () => void }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +31,7 @@ export function SignIn() {
 				onSuccess: () => {
 					setEmail("");
 					setPassword("");
+					onSuccess?.(); // ✅ Call the callback after successful login
 				},
 				onFinished: () => {
 					setIsLoading(false);

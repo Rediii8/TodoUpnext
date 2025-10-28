@@ -21,7 +21,8 @@ function createAuth(
 		logger: {
 			disabled: optionsOnly,
 		},
-		trustedOrigins: [nativeAppUrl],
+		trustedOrigins: ["http://localhost:3001",      // web frontend
+  "exp://192.168.1.8:8081",],
 		database: authComponent.adapter(ctx),
 		emailAndPassword: {
 			enabled: true,

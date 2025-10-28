@@ -48,3 +48,18 @@ coverage
 .cache
 tmp
 temp
+
+
+# Expo / React Native
+.expo/
+.expo-shared/
+apps/native/android/app/build/
+apps/native/android/.cxx/
+apps/native/android/local.properties
+apps/native/android/*.jks
+ios/build/
+ios/Pods/
+
+# APK / AAB outputs
+*.apk
+*.aab
