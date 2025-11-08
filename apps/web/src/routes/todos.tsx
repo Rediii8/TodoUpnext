@@ -12,7 +12,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
 
-import { useMutation, useQuery } from "convex/react";
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "@my-better-t-app/backend/convex/_generated/api";
 import type { Id } from "@my-better-t-app/backend/convex/_generated/dataModel";
 
@@ -23,13 +23,15 @@ export const Route = createFileRoute("/todos")({
 function TodosRoute() {
 	const [newTodoText, setNewTodoText] = useState("");
 
-	const todos = useQuery(api.todos.getAll);
+	const { isAuthenticated, isLoading } = useConvexAuth();
+	const todos = useQuery(api.todos.getAll, isAuthenticated ? undefined : "skip");
 	const createTodo = useMutation(api.todos.create);
 	const toggleTodo = useMutation(api.todos.toggle);
 	const deleteTodo = useMutation(api.todos.deleteTodo);
 
 	const handleAddTodo = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (!isAuthenticated) return;
 		const text = newTodoText.trim();
 		if (!text) return;
 		await createTodo({ text });
@@ -37,12 +39,30 @@ function TodosRoute() {
 	};
 
 	const handleToggleTodo = (id: Id<"todos">, currentCompleted: boolean) => {
+		if (!isAuthenticated) return;
 		toggleTodo({ id, completed: !currentCompleted });
 	};
 
 	const handleDeleteTodo = (id: Id<"todos">) => {
+		if (!isAuthenticated) return;
 		deleteTodo({ id });
 	};
+
+	if (isLoading) {
+		return (
+			<div className="flex justify-center py-10">
+				<Loader2 className="h-6 w-6 animate-spin" />
+			</div>
+		);
+	}
+
+	if (!isAuthenticated) {
+		return (
+			<div className="py-10 text-center text-muted-foreground">
+				You need to sign in to view your todos.
+			</div>
+		);
+	}
 
 	return (
 		<div className="mx-auto w-full max-w-md py-10">

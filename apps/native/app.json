@@ -7,6 +7,7 @@
 		"icon": "./assets/images/icon.png",
 		"scheme": "mybettertapp",
 		"userInterfaceStyle": "automatic",
+		"entryPoint": "./index.js",
 		"newArchEnabled": true,
 		"ios": {
 			"supportsTablet": true
@@ -28,6 +29,7 @@
 		},
 		"plugins": [
 			"expo-router",
+			"expo-notifications",
 			[
 				"expo-splash-screen",
 				{

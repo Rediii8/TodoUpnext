@@ -6,6 +6,7 @@
     "apps/*",
     "packages/*"
   ],
+  "main": "apps/native/index.js",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
@@ -13,17 +14,24 @@
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F @my-better-t-app/backend dev",
-    "dev:setup": "turbo -F @my-better-t-app/backend dev:setup"
+    "dev:setup": "turbo -F @my-better-t-app/backend dev:setup",
+    "fix-libcpp": "node scripts/fix-libcpp-symlinks.cjs",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@better-auth/expo": "^1.3.27",
     "better-auth": "^1.3.27",
     "expo-constants": "^18.0.10",
     "expo-linking": "^8.0.8",
-    "expo-web-browser": "^15.0.8"
+    "expo-web-browser": "^15.0.8",
+    "expo": "~54.0.20",
+    "react": "19.1.0",
+    "react-native": "0.81.5"
   },
   "devDependencies": {
     "turbo": "^2.5.4"
   },
-  "packageManager": "npm@11.0.0"
+  "packageManager": "npm@11.0.0",
+  "version": "1.0.0"
 }
